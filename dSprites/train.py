@@ -63,7 +63,7 @@ def main():
         init_wandb()
 
     if args.train:
-        train(Net=model, train_data=train_l, val_data=val_l, opt=optimizer, loss_fn=objective, epochs=20, wbf=wandbf)
+        train(Net=model, train_data=train_l, val_data=val_l, opt=optimizer, loss_fn=objective, epochs=100, wbf=wandbf)
         
 
 
