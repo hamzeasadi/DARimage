@@ -63,6 +63,9 @@ class SpritLoss(nn.Module):
         y1_y3 = Y['y_src1'] - Y['y_src2']
         yhat1 = Y['y_src2'] - pred['y31']
         yhat3 = pred['y31'] + Y['y_src1']
+
+        # print(y1_y3hat.shape)
+        # print(y1_y3.shape)
     
         loss1 = self.crt(y_zero, torch.zeros_like(y_zero))
         loss2 = self.crt(yhat1.squeeze(), Y['y_src1'].squeeze())

@@ -24,7 +24,7 @@ class SprintTNN(nn.Module):
             param.requires_grad = True
         
         self.reg = nn.Sequential(
-            nn.Linear(in_features=2*1280, out_features=1)
+            nn.Linear(in_features=2*1280, out_features=2)
         )
 
     def forward_once(self, x):
