@@ -2,6 +2,8 @@ import torch
 from torch import nn as nn, optim as optim
 
 
+dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 class SpritLoss(nn.Module):
     """
     doc
@@ -34,9 +36,9 @@ class SpritLoss(nn.Module):
         dyy = ry.t() + ry - 2. * yy # Used for B in (1)
         dxy = rx.t() + ry - 2. * zz # Used for C in (1)
         
-        XX, YY, XY = (torch.zeros(xx.shape),
-                    torch.zeros(xx.shape),
-                    torch.zeros(xx.shape))
+        XX, YY, XY = (torch.zeros(xx.shape, device=dev),
+                    torch.zeros(xx.shape, device=dev),
+                    torch.zeros(xx.shape, device=dev))
         
         if kernel == "multiscale":
             bandwidth_range = [0.2, 0.5, 0.9, 1.3]
@@ -67,7 +69,7 @@ class SpritLoss(nn.Module):
         # print(y1_y3hat.shape)
         # print(y1_y3.shape)
     
-        loss1 = self.crt(y_zero, torch.zeros_like(y_zero))
+        loss1 = self.crt(y_zero, torch.zeros_like(y_zero, device=dev))
         loss2 = self.crt(yhat1.squeeze(), Y['y_src1'].squeeze())
         loss3 = self.crt(yhat3.squeeze(), Y['y_src2'].squeeze())
         loss4 = self.crt(y1_y3hat.squeeze(), y1_y3.squeeze())
