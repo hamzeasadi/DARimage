@@ -1,7 +1,7 @@
 import torch
 from torch import nn as nn, optim as optim
 from torch.utils.data import DataLoader
-import torchmetrics as tm
+# import torchmetrics as tm
 import wandb
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

@@ -4,7 +4,7 @@ import torchvision
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
-import cv2 as cv
+# import cv2 as cv
 from torch.utils.data import DataLoader, Dataset, random_split
 from torchvision import io, transforms
 # from torchvision.tra
