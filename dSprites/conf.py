@@ -7,6 +7,7 @@ paths = dict(
     dcolor=os.path.join(root, 'dSprites', 'color'),
     dnoisy=os.path.join(root, 'dSprites', 'noisy'),
     dscream=os.path.join(root, 'dSprites', 'scream'),
+    ckpoint=os.path.join(root, 'ckpoint')
 )
 
 

@@ -19,10 +19,10 @@ def train_step(net: nn.Module, data: DataLoader, loss_fn: nn.Module, opt: optim.
         opt.zero_grad()
         loss.backward()
         epoch_loss += (1/i)*(loss.item() - epoch_loss)
-        if (i%100 == 0) and wbf:
-            wandb.log(dict(train=epoch_loss))
+        # if (i%100 == 0) and wbf:
+        #     wandb.log(dict(train=epoch_loss))
 
-    return dict(train_loss=epoch_loss)
+    return dict(epoch_train_loss=epoch_loss)
 
 
 def eval_step(net: nn.Module, data: DataLoader, loss_fn: nn.Module, wbf: bool=False):
@@ -36,10 +36,10 @@ def eval_step(net: nn.Module, data: DataLoader, loss_fn: nn.Module, wbf: bool=Fa
             out = net(X['src1'].to(dev), X['trg'].to(dev), X['src2'].to(dev))
             loss = loss_fn(Y=Y, pred=out)
             epoch_loss += (1/i)*(loss.item() - epoch_loss)
-            if (i%100 == 0) and wbf:
-                wandb.log(dict(val=epoch_loss))
+            # if (i%100 == 0) and wbf:
+            #     wandb.log(dict(val=epoch_loss))
 
-    return dict(eval_loss=epoch_loss)
+    return dict(epoch_eval_loss=epoch_loss)
 
 
 
