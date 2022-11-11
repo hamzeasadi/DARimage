@@ -55,7 +55,7 @@ def main():
 
     model = m.SprintTNN()
     model.to(dev)
-    train_l, val_l, test_l = ds.build_dataset(batch_size=64)
+    train_l, val_l, test_l = ds.build_dataset(batch_size=32)
     objective = utils.SpritLoss()
     optimizer = utils.build_opt(Net=model, opttype='adam', lr=3e-4)
 
