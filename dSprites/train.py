@@ -41,7 +41,8 @@ def train(Net: nn.Module, train_data: DataLoader, val_data: DataLoader, opt: opt
 
         if val_result['epoch_eval_loss'] < minvalerror:
             minvalerror = val_result['epoch_eval_loss'] 
-            kt.save_ckp(model=Net, opt=opt, epoch=epoch, minvalerror=minvalerror, modelName='SprintModelV0.pt')
+            kt.save_ckp(net=Net, opt=opt, epoch=epoch, min_error=minvalerror, model_name='SprintModelV0.pt')
+            # net: nn.Module, opt: optim.Optimizer, epoch: int, min_error: float, model_name: str
 
         wandb.log(train_result|val_result)
         print(train_result|val_result)
