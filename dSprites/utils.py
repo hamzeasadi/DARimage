@@ -17,16 +17,26 @@ class SpritLoss(nn.Module):
         u_s1, s_s1, v_s1 = torch.svd(Feature_s1)
         u_s2, s_s2, v_s2 = torch.svd(Feature_s2)
         u_t, s_t, v_t = torch.svd(Feature_t)
-        
-        rots1 = torch.mm(u_s1, v_s1.t())
-        rots2 = torch.mm(u_s2, v_s2.t())
-        rott = torch.mm(u_t, v_t.t())
 
-        lr1 = self.MMD(x=rots1, y=rott, kernel='rbf')
-        lr2 = self.MMD(x=rots2, y=rott, kernel='rbf')
+        p_s1, cospa1, p_t1 = torch.svd(torch.mm(u_s1.t(), u_t))
+        sinpa1 = torch.sqrt(1-torch.pow(cospa1,2))
+
+        p_s2, cospa2, p_t2 = torch.svd(torch.mm(u_s2.t(), u_t))
+        sinpa2 = torch.sqrt(1-torch.pow(cospa2,2))
+
+        l1 = torch.norm(sinpa1,1)+0.001*torch.norm(torch.abs(p_s1) - torch.abs(p_t1), 2)
+        l2 = torch.norm(sinpa2,1)+0.001*torch.norm(torch.abs(p_s2) - torch.abs(p_t2), 2)
+        
+        # rots1 = torch.mm(u_s1, v_s1.t())
+        # rots2 = torch.mm(u_s2, v_s2.t())
+        # rott = torch.mm(u_t, v_t.t())
+
+        # lr1 = self.MMD(x=rots1, y=rott, kernel='rbf')
+        # lr2 = self.MMD(x=rots2, y=rott, kernel='rbf')
        
 
-        return lr1+lr2
+        # return lr1+lr2
+        return l1 + l2
 
     def MMD(self, x, y, kernel):
         xx, yy, zz = torch.mm(x, x.t()), torch.mm(y, y.t()), torch.mm(x, y.t())
