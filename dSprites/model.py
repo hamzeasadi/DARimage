@@ -28,7 +28,8 @@ class SprintTNN(nn.Module):
         )
 
     def forward_once(self, x):
-        return self.dimred(self.adafx(self.fx(x)))
+        x = self.adafx(self.fx(x))
+        return self.dimred(x.squeeze())
 
 
     def forward(self, x1, x2, x3):
@@ -49,11 +50,11 @@ class SprintTNN(nn.Module):
 
 
 def main():
-    x = torch.randn(size=(3, 5))
-    u, s, v = torch.svd(x)
-    u1, s1, v1 = torch.linalg.svd(x)
-    print(u, s, v)
-    print(u1, s1, v1)
+    # x = torch.randn(size=(3, 5))
+    # u, s, v = torch.svd(x)
+    # u1, s1, v1 = torch.linalg.svd(x)
+    # print(u, s, v)
+    # print(u1, s1, v1)
 
     model = SprintTNN()
     # summary(model, input_size=[(1, 3, 240, 240), (1, 3, 240, 240), (1, 3, 240, 240)])
@@ -63,8 +64,8 @@ def main():
     x3 = torch.randn(5, 3, 240, 240)
     out = model(x1, x2, x3)
     print(out['z1'].shape, out['y12'].shape)
-    u, s, v = torch.svd(out['z1'])
-    print(u.shape, s.shape, v.shape)
+    # u, s, v = torch.svd(out['z1'])
+    # print(u.shape, s.shape, v.shape)
 
     
 
