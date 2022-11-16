@@ -22,13 +22,13 @@ class SprintTNN(nn.Module):
         
         for param in self.fx[8].parameters():
             param.requires_grad = True
-        
+        self.dimred =  nn.Linear(in_features=1280, out_features=128)
         self.reg = nn.Sequential(
-            nn.Linear(in_features=2*1280, out_features=2)
+            nn.Linear(in_features=2*128, out_features=2)
         )
 
     def forward_once(self, x):
-        return self.adafx(self.fx(x))
+        return self.dimred(self.adafx(self.fx(x)))
 
 
     def forward(self, x1, x2, x3):
