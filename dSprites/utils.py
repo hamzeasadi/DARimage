@@ -27,12 +27,15 @@ class SpritLoss(nn.Module):
         # l1 = torch.norm(sinpa1,1)+0.001*torch.norm(torch.abs(p_s1) - torch.abs(p_t1), 2)
         # l2 = torch.norm(sinpa2,1)+0.001*torch.norm(torch.abs(p_s2) - torch.abs(p_t2), 2)
         
-        rots1 = torch.mm(u_s1, v_s1.t())
-        rots2 = torch.mm(u_s2, v_s2.t())
-        rott = torch.mm(u_t, v_t.t())
+        # rots1 = torch.mm(u_s1, v_s1.t())
+        # rots2 = torch.mm(u_s2, v_s2.t())
+        # rott = torch.mm(u_t, v_t.t())
 
-        lr1 = self.MMD(x=rots1, y=rott, kernel='rbf')
-        lr2 = self.MMD(x=rots2, y=rott, kernel='rbf')
+        # lr1 = self.MMD(x=rots1, y=rott, kernel='rbf')
+        # lr2 = self.MMD(x=rots2, y=rott, kernel='rbf')
+
+        lr1 = self.MMD(x=u_s1, y=u_t, kernel='rbf')
+        lr2 = self.MMD(x=u_s2, y=u_t, kernel='rbf')
        
 
         return lr1+lr2
